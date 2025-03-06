@@ -1,3 +1,4 @@
+import { addTodo } from "@/lib/todos";
 import { useState } from "react";
 
 function AddTask(props) {
@@ -8,12 +9,10 @@ function AddTask(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name || !description) return;
-    const response = await fetch("/api/todos", {
-      method: "POST",
-      body: JSON.stringify({ name, description }),
-    });
-    const newTodos = await response.json();
+    const newTodos = await addTodo(name, description);
     setTodos(newTodos.data);
+    setName("");
+    setDescription("");
   };
   return (
     <div className="flex flex-col items-center gap-2">
