@@ -1,25 +1,9 @@
-const todos = [
-  {
-    id: 1,
-    name: "Todo 1",
-    description: "Description 1",
-    completed: false,
-  },
-  {
-    id: 2,
-    name: "Todo 2",
-    description: "Description 2",
-    completed: false,
-  },
-  {
-    id: 3,
-    name: "Todo 3",
-    description: "Description 3",
-    completed: false,
-  },
-];
+import { PrismaClient } from "@prisma/client";
 
-export function GET() {
+const prisma = new PrismaClient();
+
+export async function GET() {
+  const todos = await prisma.todo.findMany();
   return Response.json(
     {
       data: todos,
@@ -37,17 +21,19 @@ export async function POST(request) {
       { status: 400 }
     );
   }
-  const newTodo = {
-    id: Date.now(),
-    name,
-    description,
-    completed: false,
-  };
-  todos.push(newTodo);
+  await prisma.todo.create({
+    data: {
+      name,
+      description,
+      completed: false,
+    },
+  });
+
+  const newTodos = await prisma.todo.findMany();
 
   return Response.json(
     {
-      data: todos,
+      data: newTodos,
       message: "Successfully added new todo",
     },
     { status: 201 }
@@ -55,6 +41,7 @@ export async function POST(request) {
 }
 
 export function PUT() {
+  
   return Response.json({ message: "PUT todos" });
 }
 
