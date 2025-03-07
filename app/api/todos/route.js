@@ -40,11 +40,50 @@ export async function POST(request) {
   );
 }
 
-export function PUT() {
-  
-  return Response.json({ message: "PUT todos" });
+export async function PUT(request) {
+  try {
+    const { id, completed } = await request.json();
+
+    await prisma.todo.update({
+      where: {
+        id,
+      },
+      data: {
+        completed,
+      },
+    });
+
+    const newTodos = await prisma.todo.findMany();
+    return Response.json(
+      {
+        data: newTodos,
+        message: "Succesfully Updated a todo",
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log(error);
+    return Response.json({
+      message: error,
+    });
+  }
 }
 
-export function DELETE() {
-  return Response.json({ message: "DELETE todos" });
+export async function DELETE(request) {
+  const { id } = await request.json();
+  if (!id) return Response.json({ message: "id is required" }, { status: 400 });
+  await prisma.todo.delete({
+    where: {
+      id,
+    },
+  });
+  const newTodos = await prisma.todo.findMany();
+
+  return Response.json(
+    {
+      data: newTodos,
+      message: "Succesfully deleted a Todo",
+    },
+    { status: 200 }
+  );
 }

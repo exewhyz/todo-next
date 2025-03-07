@@ -1,3 +1,4 @@
+"use client"
 import { addTodo } from "@/lib/todos";
 import { useState } from "react";
 
