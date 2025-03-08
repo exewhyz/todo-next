@@ -1,3 +1,4 @@
+import Navbar from "@/components/Navbar";
 import "./globals.css";
 import Link from "next/link";
 
@@ -9,15 +10,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        <div className="flex gap-2.5">
-          <Link href="/" className="bg-blue-400 p-1.5 rounded-full">
-            Home
-          </Link>
-          <Link href="/about" className="bg-blue-400 p-1.5 rounded-full">
-            About
-          </Link>
-        </div>
+      <body className="bg-gray-900 text-white placeholder:text-gray-700 antialiased">
+        <Navbar />
         {children}
       </body>
     </html>

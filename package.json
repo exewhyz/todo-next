@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "generate": "npx prisma generate",
-    "sync": "npx prisma migrate dev"
+    "sync": "npx prisma db push"
   },
   "dependencies": {
     "@prisma/client": "^6.4.1",

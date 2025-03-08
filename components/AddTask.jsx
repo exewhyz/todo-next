@@ -1,23 +1,24 @@
-"use client"
+"use client";
 import { addTodo } from "@/lib/todos";
 import { useState } from "react";
 
 function AddTask(props) {
-  const { setTodos } = props;
+  // const { setTodos } = props;
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name || !description) return;
-    const newTodos = await addTodo(name, description);
-    setTodos(newTodos.data);
+    // const newTodos =
+    await addTodo(name, description);
+    // setTodos(newTodos.data);
     setName("");
     setDescription("");
   };
   return (
-    <div className="flex flex-col items-center gap-2">
-      <h3 className="font-bold text-2xl">Add Task</h3>
+    <div className="flex flex-col items-center gap-2 shadow-xs py-4">
+      <h1 className="font-bold text-4xl">Add Task</h1>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 items-center w-full"
@@ -29,7 +30,7 @@ function AddTask(props) {
           onChange={(e) => {
             setName(e.target.value);
           }}
-          className="w-1/4 border"
+          className="w-1/4 border p-2 rounded"
         />
         <textarea
           rows={3}
@@ -38,11 +39,11 @@ function AddTask(props) {
           onChange={(e) => {
             setDescription(e.target.value);
           }}
-          className="w-1/4 border"
+          className="w-1/4 border p-2 rounded"
         />
         <button
           type="submit"
-          className="flex items-center justify-center bg-blue-400 px-4 py-2 rounded-xl"
+          className="flex items-center justify-center bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-xl"
         >
           Add Todo
         </button>
